@@ -1,0 +1,8 @@
+indexes:
+  - {
+    name: eur_test, 
+    homePath: $SPLUNK_DB/eur_test/db,
+    coldPath: $SPLUNK_DB/eur_test/colddb,
+    thawedPath: $SPLUNK_DB/eur_test/thaweddb,
+    maxTotalDataSizeMB: 1024
+  }

@@ -1,0 +1,35 @@
+---
+- include: roles/common/tasks/install-full-instance.yml
+
+- name: Populate Splunk configs
+  template:
+    src: "{{ item + '.j2' }}"
+    dest: /opt/splunk/etc/system/local/{{ item }}
+  with_items:
+    - inputs.conf
+    - server.conf
+
+- name: Start Splunk
+  command: /opt/splunk/bin/splunk restart --accept-license  --answer-yes
+
+- name: Enable boot-start
+  command: /opt/splunk/bin/splunk enable boot-start
+
+- include: roles/common/tasks/update_admin_password.yml
+
+- name: Create dir for shared key
+  file:
+    path: /opt/splunk/etc/auth/distServerKeys/{{ hostvars['cluster-shead-hq']['ansible_fqdn'] }}
+    state: directory
+    mode: 0700
+
+- name: Copy shared key to newly created dir
+  copy:
+    src: trusted.pem
+    dest: /opt/splunk/etc/auth/distServerKeys/{{ hostvars['cluster-shead-hq']['ansible_fqdn'] }}/trusted.pem
+    mode: 0600
+
+- name: Restart again to apply password change
+  service:
+    name: splunk
+    state: restarted

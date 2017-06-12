@@ -1,0 +1,23 @@
+# what indexer should we attach to
+regional_indexer: https://cluster-indexer-{{ region }}.vir:8089
+
+# ldap strategies
+strategies:
+  - {
+    strategy_name: ldapinho,
+    SSLEnabled: 0,
+    bindDN: "CN=Administrator,CN=Users,DC=st8,DC=org",
+    bindDNpassword: "$1$jpqOOxxMXrNGG/U=",
+    groupBaseDN: "CN=splunk,CN=Users,DC=st8,DC=org",
+    groupMappingAttribute: dn,
+    groupMemberAttribute: member,
+    groupNameAttribute: samaccountname,
+    host: 188.130.155.41,
+    nestedGroups: 0,
+    network_timeout: 20,
+    port: 389,
+    realNameAttribute: name,
+    userBaseDN: "CN=Users,DC=st8,DC=org",
+    userNameAttribute: samaccountname,
+    ldap_group_name_user: splunk
+  }

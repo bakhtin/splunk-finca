@@ -1,0 +1,5 @@
+#pass4SymmKey_clustering: "{{ lookup('password', 'roles/cluster-eur/files/pass4SymmKey chars=ascii_letters length=8') }}"
+pass4SymmKey_clustering: A123456a
+master_node_uri: https://cluster-master-node-{{ region }}:8089
+# Defaults to "password". Don't edit unless changed on Splunk server
+sslPassword: password

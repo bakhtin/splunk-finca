@@ -1,0 +1,9 @@
+# Install Splunk Universal Forwarder
+- name: Copy .deb file to server
+  copy:
+     src: roles/common/files/splunkforwarder-6.6.0-1c4f3bbe1aea-linux-2.6-amd64.deb
+     dest: /tmp/
+
+- name: Install Splunk-6.6.0
+  apt:
+    deb: /tmp/splunkforwarder-6.6.0-1c4f3bbe1aea-linux-2.6-amd64.deb

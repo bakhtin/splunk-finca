@@ -1,0 +1,11 @@
+{% if indexes is defined %}
+{% for index in indexes %}
+[{{ index.name }}]
+repFactor=auto
+homePath={{ index.homePath }}
+coldPath={{ index.coldPath }}
+thawedPath={{ index.thawedPath }}
+maxTotalDataSizeMB={{ index.maxTotalDataSizeMB }}
+
+{% endfor %}
+{% endif %}

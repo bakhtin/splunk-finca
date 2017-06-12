@@ -1,0 +1,34 @@
+# {{ ansible_managed }}
+[authentication]
+authSettings = {% for strategy_name in strategies %}
+{% if not loop.last %}{{ strategy_name.strategy_name }},{% else %}{{ strategy_name.strategy_name }}
+{% endif %}
+{% endfor %}
+authType = LDAP
+
+{% for strategy_name in strategies %}
+
+[{{ strategy_name.strategy_name }}]
+SSLEnabled = {{ strategy_name.SSLEnabled }}
+anonymous_referrals = 1
+bindDN = {{ strategy_name.bindDN }}
+bindDNpassword = {{ strategy_name.bindDNpassword }}
+charset = utf8
+emailAttribute = mail
+groupBaseDN = {{ strategy_name.groupBaseDN }}
+groupMappingAttribute = {{ strategy_name.groupMappingAttribute }}
+groupMemberAttribute = {{ strategy_name.groupMemberAttribute }}
+groupNameAttribute = {{ strategy_name.groupNameAttribute }}
+host = {{ strategy_name.host }}
+nestedGroups = {{ strategy_name.nestedGroups }}
+network_timeout = {{ strategy_name.network_timeout }}
+port = {{ strategy_name.port }}
+realNameAttribute = {{ strategy_name.realNameAttribute }}
+sizelimit = 10000
+timelimit = 15
+userBaseDN = {{ strategy_name.userBaseDN }}
+userNameAttribute = {{ strategy_name.userNameAttribute }}
+
+[roleMap_{{ strategy_name.strategy_name }}]
+user = {{ strategy_name.ldap_group_name_user }}
+{% endfor %}

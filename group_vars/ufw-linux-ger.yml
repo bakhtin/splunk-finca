@@ -1,0 +1,4 @@
+regional_forwarder: "cluster-hfw-eur-1.vir:9997"
+common_sources:
+  - {source: /var/log/syslog, index: eur_test}
+  - {source: /var/log/auth.log, index: eur_test}

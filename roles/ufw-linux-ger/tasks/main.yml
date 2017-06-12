@@ -1,0 +1,44 @@
+---
+- include: roles/common/tasks/install-ufw-instance.yml
+
+- file:
+    path: /opt/splunkforwarder/etc/apps/search/local
+    state: directory
+    mode: 0755
+
+- name: Add monitors
+  template:
+    src: "{{ item + '.j2' }}"
+    dest: /opt/splunkforwarder/etc/apps/search/local/{{ item }}
+  with_items:
+      - inputs.conf
+
+- name: Add outputs
+  template:
+    src: "{{ item + '.j2' }}"
+    dest: /opt/splunkforwarder/etc/system/local/{{ item }}
+  with_items:
+      - outputs.conf
+
+- name: Start Splunk
+  command: /opt/splunkforwarder/bin/splunk restart --accept-license  --answer-yes
+
+- name: Enable boot-start
+  command: /opt/splunkforwarder/bin/splunk enable boot-start
+
+### change password
+- name: Get hash of password
+  shell: python -c "from string import ascii_letters;import crypt, getpass,pwd,random;print crypt.crypt('{{ splunk_new_password }}', '\$6\$'+''.join(random.choice(ascii_letters) for j in range(16))+'\$')"
+  register: result
+
+- name: Change password
+  lineinfile:
+    path: /opt/splunkforwarder/etc/passwd
+    regexp: '^(:admin:)[^:]*(:.*)$'
+    line: '\1{{ result.stdout }}\2'
+    backrefs: yes
+
+- name: Restart again to apply password change
+  service:
+    name: splunk
+    state: restarted

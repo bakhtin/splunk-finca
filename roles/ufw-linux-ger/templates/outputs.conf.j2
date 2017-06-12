@@ -1,0 +1,8 @@
+[tcpout]
+defaultGroup = default-autolb-group
+
+[tcpout:default-autolb-group]
+server = {{ regional_forwarder }}
+useACK=true
+
+[tcpout-server://{{ regional_forwarder }}]

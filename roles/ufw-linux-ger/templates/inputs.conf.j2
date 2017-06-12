@@ -1,0 +1,15 @@
+{% if common_sources is defined %}
+{% for source in common_sources %}
+[monitor://{{ source.source }}]
+disabled = false
+index = {{ source.index }}
+{% endfor %}
+{% endif %}
+
+{% if log_sources is defined %}
+{% for source in log_sources %}
+[monitor://{{ source.source }}]
+disabled = false
+index = {{ source.index }}
+{% endfor %}
+{% endif %}

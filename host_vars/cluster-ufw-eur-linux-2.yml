@@ -1,0 +1,2 @@
+log_sources:
+  - {source: /var/log/kern.log, index: eur_test}

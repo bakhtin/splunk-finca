@@ -1,0 +1,58 @@
+---
+# setup Python on all hosts 
+- hosts: all
+  gather_facts: False
+  become: true  
+
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+    changed_when: False
+
+# setup regional shead
+- hosts: shead-eur
+  become: true
+  roles:
+    - shead-eur
+
+# setup hq shead
+- hosts: cluster-shead-hq
+  become: true
+  roles:
+    - shead-hq
+
+# setup master-node-eur
+- hosts: cluster-master-node-eur
+  become: true
+  vars_files:
+    - group_vars/cluster-eur.yml
+  roles: 
+    - cluster-master-node-eur
+
+# setup indexer-eur
+- hosts: cluster-indexer-eur
+  become: true
+  vars_files:
+    - group_vars/cluster-eur.yml
+  roles: 
+    - cluster-indexer-eur
+
+# setup indexer-eur
+- hosts: cluster-indexer-hq-eur
+  become: true
+  vars_files:
+    - group_vars/cluster-eur.yml
+  roles: 
+    - cluster-indexer-hq-eur
+
+# setup heavy forwarder
+- hosts: hfw-ger
+  become: true
+  roles:
+    - cluster-hfw-eur-1
+
+# setup universal forwarder
+- hosts: cluster-ufw-eur-linux-2
+  become: true
+  roles:
+    - ufw-linux-ger

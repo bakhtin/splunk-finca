@@ -1,0 +1,1 @@
+Make sure that indexes used by universal forwarders exist on master node. Check "cluster-master-node" file

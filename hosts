@@ -1,0 +1,31 @@
+# Use aliases for hostnames
+[ufw-linux-ger]
+cluster-ufw-eur-linux-1 ansible_host=cluster-ufw-eur-linux-1.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
+cluster-ufw-eur-linux-2 ansible_host=cluster-ufw-eur-linux-2.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
+
+# [ufw-windows-ger]
+# ...
+
+[hfw-ger]
+cluster-hfw-eur-1 ansible_host=cluster-hfw-eur-1.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
+
+[ger:children]
+hfw-ger
+ufw-linux-ger
+# ufw-windows-ger
+
+[cluster-eur]
+cluster-indexer-hq-eur ansible_host=cluster-indexer-hq-eur.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
+cluster-indexer-eur ansible_host=cluster-indexer-eur.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
+cluster-master-node-eur ansible_host=cluster-master-node-eur.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
+
+[shead-eur]
+cluster-shead-eur ansible_host=cluster-shead-eur.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
+
+[eur:children]
+cluster-eur
+shead-eur
+ger
+
+[amer]
+cluster-shead-hq ansible_host=cluster-shead-hq.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
