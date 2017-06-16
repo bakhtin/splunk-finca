@@ -1,12 +1,5 @@
 ---
-# general vars:
+# common vars:
 splunk_new_password: 50000000
 region: eur
 deploymentserver: cluster-ds-hq.vir:8089
-
-# heavy forwarder vars:
-splunk_deb_path: /Downloads/splunk-6.6.0-1c4f3bbe1aea-linux-2.6-amd64.deb
-
-# universal forwarder vars:
-splunkforwarder_deb_path: /Downloads/splunkforwarder-6.6.0-1c4f3bbe1aea-linux-2.6-amd64.deb
-monitors_list_file: filesconf/ufw/etc/apps/search/local/inputs.conf
