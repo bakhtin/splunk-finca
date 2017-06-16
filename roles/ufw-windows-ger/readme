@@ -2,7 +2,7 @@ To setup Windows System:
 - run Windows PowerShell as administrator
   run this comand to allow run ps1 script: 
     > Set-ExecutionPolicy Unrestricted
-- run script to configure Ansible 
+- run the script to configure Ansible 
     > powershell.exe .\ConfigureRemotingForAnsible.ps1  
 
 ConfigureRemotingForAnsible.ps1 download from https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1
