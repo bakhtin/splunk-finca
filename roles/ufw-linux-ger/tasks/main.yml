@@ -19,6 +19,7 @@
     dest: /opt/splunkforwarder/etc/system/local/{{ item }}
   with_items:
       - outputs.conf
+      - deploymentclient.conf
 
 - name: Start Splunk
   command: /opt/splunkforwarder/bin/splunk restart --accept-license  --answer-yes

@@ -8,6 +8,7 @@
   with_items:
     - inputs.conf
     - outputs.conf
+    - deploymentclient.conf
 
 - name: Start Splunk
   command: /opt/splunk/bin/splunk restart --accept-license  --answer-yes
