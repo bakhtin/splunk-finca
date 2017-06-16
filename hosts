@@ -3,8 +3,8 @@
 cluster-ufw-eur-linux-1 ansible_host=cluster-ufw-eur-linux-1.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
 cluster-ufw-eur-linux-2 ansible_host=cluster-ufw-eur-linux-2.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
 
-# [ufw-windows-ger]
-# ...
+[ufw-windows-ger]
+192.168.56.102 ansible_user=windows ansible_password=windows
 
 [hfw-ger]
 cluster-hfw-eur-1 ansible_host=cluster-hfw-eur-1.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu
@@ -12,7 +12,7 @@ cluster-hfw-eur-1 ansible_host=cluster-hfw-eur-1.vir ansible_connection=ssh ansi
 [ger:children]
 hfw-ger
 ufw-linux-ger
-# ufw-windows-ger
+ufw-windows-ger
 
 [cluster-eur]
 cluster-indexer-hq-eur ansible_host=cluster-indexer-hq-eur.vir ansible_connection=ssh ansible_ssh_user=ubuntu ansible_ssh_pass=ubuntu ansible_become_pass=ubuntu

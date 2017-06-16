@@ -1,0 +1,6 @@
+log_sources:
+  - {source: "C:\\111222", index: eur_test}
+WinEventLogs_sources:
+  - { Event: System, index: eur_test, checkpointInterval: 5, current_only: 0 }
+
+

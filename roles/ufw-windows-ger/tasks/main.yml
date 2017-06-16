@@ -1,0 +1,49 @@
+---
+- name: Copy .msi file to server
+  win_copy:
+     src: roles/common/files/win.msi
+     dest: C:\win.msi
+
+- name: Install an MSI file
+  win_msi:
+    path: C:\win.msi
+    extra_args:  AGREETOLICENSE=yes /quiet
+    wait: true
+
+- name: Add monitors
+  win_template:
+    src: "{{ item + '.j2' }}"
+    dest: C:\Program Files\SplunkUniversalForwarder\etc\apps\SplunkUniversalForwarder\local\{{ item }}
+  with_items:
+      - inputs.conf
+
+- name: Add outputs and deploymentclient.conf
+  win_template:
+    src: "{{ item + '.j2' }}"
+    dest: C:\Program Files\SplunkUniversalForwarder\etc\system\local\{{ item }}
+  with_items:
+      - outputs.conf
+      - deploymentclient.conf
+
+### Change password
+- name: Get hash of password
+  local_action: shell python -c "from string import ascii_letters;import crypt, getpass,pwd,random;print crypt.crypt('{{ splunk_new_password }}', '\$6\$'+''.join(random.choice(ascii_letters) for j in range(16))+'\$')"
+  register: SHA512
+
+- name: Change password
+  win_lineinfile:
+    path: C:\Program Files\SplunkUniversalForwarder\etc\passwd
+    regexp: '^(:admin:)[^:]*(:.*)$'
+    line: '$1{{ SHA512.stdout }}$2'
+    backrefs: yes
+    backup: yes
+
+- name: Restart again to apply password change
+  win_service:
+    name: SplunkForwarder
+    state: restarted
+    username: LocalSystem
+    password: ""
+    desktop_interact: True
+
+

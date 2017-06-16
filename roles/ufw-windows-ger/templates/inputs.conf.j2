@@ -1,0 +1,37 @@
+{% if common_WinEventLogs_sources is defined %}
+{% for source in common_WinEventLogs_sources %}
+[WinEventLog://{{ source.Event }}]
+checkpointInterval = {{ source.checkpointInterval }}
+current_only = {{ source.current_only }}
+disabled = 0
+start_from =  oldest
+index = {{ source.index }}
+{% endfor %}
+{% endif %}
+
+{% if WinEventLogs_sources is defined %}
+{% for source in WinEventLogs_sources %}
+[WinEventLog://{{ source.Event }}]
+checkpointInterval = {{ source.checkpointInterval }}
+current_only = {{ source.current_only }}
+disabled = 0
+start_from =  oldest
+index = {{ source.index }}
+{% endfor %}
+{% endif %}
+
+{% if common_sources is defined %}
+{% for source in common_sources %}
+[monitor://{{ source.source }}]
+disabled = false
+index = {{ source.index }}
+{% endfor %}
+{% endif %}
+
+{% if log_sources is defined %}
+{% for source in log_sources %}
+[monitor://{{ source.source }}]
+disabled = false
+index = {{ source.index }}
+{% endfor %}
+{% endif %}

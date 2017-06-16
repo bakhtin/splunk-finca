@@ -56,3 +56,8 @@
   become: true
   roles:
     - ufw-linux-ger
+
+# setup universal forwarder to windows
+- hosts: ufw-windows-ger
+  roles:
+    - ufw-windows-ger
